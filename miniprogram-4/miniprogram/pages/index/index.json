@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "cloud-tip-modal": "/components/cloudTipModal/index"
+  },
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTitleText": "运动项目报名程序"
+}

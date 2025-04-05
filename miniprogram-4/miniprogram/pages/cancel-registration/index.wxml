@@ -1,0 +1,32 @@
+<!--cancel-registration/index.wxml-->
+<view class="cancel-container">
+  <view class="page-header">
+    <view class="page-title">取消报名</view>
+    <view class="sub-title">请选择要取消的报名项目</view>
+  </view>
+
+  <!-- 报名列表 -->
+  <view class="registration-list">
+    <block wx:if="{{registrations.length > 0}}">
+      <view class="registration-item" wx:for="{{registrations}}" wx:key="_id">
+        <view class="registration-info">
+          <view class="sport-type">{{item.sportType}}</view>
+          <view class="date-time">
+            <text class="date">{{item.sportDate}}</text>
+            <text class="time">{{item.timeSlot}}</text>
+          </view>
+          <view class="remark" wx:if="{{item.remark}}">备注：{{item.remark}}</view>
+        </view>
+        <view class="action-buttons">
+          <button class="cancel-btn" bindtap="handleCancel" data-id="{{item._id}}">取消报名</button>
+        </view>
+      </view>
+    </block>
+    <view class="empty-state" wx:else>
+      <text>暂无可取消的报名项目</text>
+    </view>
+  </view>
+
+  <!-- 返回按钮 -->
+  <button class="back-button" bindtap="goBack">返回</button>
+</view> 

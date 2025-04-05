@@ -1,0 +1,53 @@
+<!--registration/index.wxml-->
+<view class="registration-container">
+  <view class="registration-header">
+    <view class="page-title">运动项目报名</view>
+    <view class="sub-title">请选择项目和时间</view>
+  </view>
+  
+  <!-- 表单区域 -->
+  <view class="form-container">
+    <!-- 运动项目选择 -->
+    <view class="form-item">
+      <view class="form-label">运动项目</view>
+      <picker bindchange="onSportTypeChange" value="{{sportTypeIndex}}" range="{{sportTypes}}">
+        <view class="picker-content {{sportTypeIndex === -1 ? 'placeholder' : ''}}">
+          {{sportTypeIndex === -1 ? '请选择运动项目' : sportTypes[sportTypeIndex]}}
+        </view>
+      </picker>
+    </view>
+    
+    <!-- 运动时间选择 -->
+    <view class="form-item">
+      <view class="form-label">运动日期</view>
+      <picker mode="date" bindchange="onDateChange" value="{{date}}" start="{{minDate}}" end="{{maxDate}}">
+        <view class="picker-content {{!date ? 'placeholder' : ''}}">
+          {{date || '请选择日期'}}
+        </view>
+      </picker>
+    </view>
+    
+    <!-- 时间段选择 -->
+    <view class="form-item">
+      <view class="form-label">时间段</view>
+      <picker bindchange="onTimeSlotChange" value="{{timeSlotIndex}}" range="{{timeSlots}}">
+        <view class="picker-content {{timeSlotIndex === -1 ? 'placeholder' : ''}}">
+          {{timeSlotIndex === -1 ? '请选择时间段' : timeSlots[timeSlotIndex]}}
+        </view>
+      </picker>
+    </view>
+    
+    <!-- 备注信息 -->
+    <view class="form-item">
+      <view class="form-label">备注</view>
+      <textarea class="form-textarea" placeholder="可选填" bindinput="onRemarkInput" value="{{remark}}" maxlength="200"></textarea>
+      <view class="textarea-counter">{{remarkLength}}/200</view>
+    </view>
+    
+    <!-- 提交按钮 -->
+    <button class="submit-button" bindtap="submitRegistration" type="primary" disabled="{{!isFormValid}}">提交报名</button>
+    
+    <!-- 返回按钮 -->
+    <button class="back-button" bindtap="goBack" type="default">返回</button>
+  </view>
+</view> 

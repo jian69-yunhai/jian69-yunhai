@@ -1,0 +1,34 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/dashboard/index",
+    "pages/registration/index",
+    "pages/cancel-registration/index",
+    "pages/statistics/index",
+    "pages/goods-list/index",
+    "pages/examples/index",
+    "pages/user-center/index",
+    "pages/exampleDetail/index",
+    "pages/deployService/index",
+    "pages/updateRecord/index",
+    "pages/updateRecordResult/index",
+    "pages/updateRecordSuccess/index",
+    "pages/sumRecord/index",
+    "pages/sumRecordResult/index",
+    "pages/web/index",
+    "pages/cloudbaseModuleDetail/index",
+    "pages/cloudbaseModuleInstallTips/index",
+    "pages/cloudbaseModuleGuide/index",
+    "pages/business/index"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "运动项目报名程序",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents"
+}

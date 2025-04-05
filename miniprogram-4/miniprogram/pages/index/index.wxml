@@ -1,0 +1,86 @@
+<!--index.wxml-->
+<view class="container">
+  <!-- 加载中 -->
+  <view class="loading-container" wx:if="{{isLoading}}">
+    <view class="loading">加载中...</view>
+  </view>
+
+  <!-- 用户登录区域 -->
+  <view class="login-container" wx:if="{{!isLoading && !isAuthenticated}}">
+    <view class="login-title">{{isRegisterMode ? '用户注册' : '用户登录'}}</view>
+    <view class="login-subtitle">{{isRegisterMode ? '注册运动项目报名账户' : '登录运动项目报名系统'}}</view>
+    
+    <!-- 错误信息 -->
+    <view class="error-message" wx:if="{{errorMessage}}">{{errorMessage}}</view>
+    
+    <!-- 登录表单 -->
+    <view class="login-form">
+      <!-- 用户名 -->
+      <view class="form-item">
+        <text class="form-label">用户名</text>
+        <input class="form-input" 
+               value="{{username}}" 
+               bindinput="inputUsername" 
+               placeholder="请输入用户名" />
+      </view>
+      
+      <!-- 密码 -->
+      <view class="form-item">
+        <text class="form-label">密码</text>
+        <view class="password-container">
+          <input class="form-input" 
+                 value="{{password}}" 
+                 password="{{!showPassword}}" 
+                 bindinput="inputPassword" 
+                 placeholder="请输入密码" />
+          <image class="password-toggle" 
+                 src="{{showPassword ? '../../images/eye-open.png' : '../../images/eye-closed.png'}}" 
+                 bindtap="togglePasswordVisibility"></image>
+        </view>
+      </view>
+      
+      <!-- 确认密码 (仅注册时显示) -->
+      <view class="form-item" wx:if="{{isRegisterMode}}">
+        <text class="form-label">确认密码</text>
+        <input class="form-input" 
+               value="{{confirmPassword}}" 
+               password="{{!showPassword}}" 
+               bindinput="inputConfirmPassword" 
+               placeholder="请再次输入密码" />
+      </view>
+      
+      <!-- 提交按钮 -->
+      <button class="login-button" type="primary" bindtap="formSubmit">
+        {{isRegisterMode ? '注册' : '登录'}}
+      </button>
+      
+      <!-- 切换模式 -->
+      <view class="switch-mode" bindtap="switchMode">
+        {{isRegisterMode ? '已有账号？点击登录' : '没有账号？点击注册'}}
+      </view>
+    </view>
+    
+    <!-- 系统简介 -->
+    <view class="system-intro">
+      <view class="intro-title">运动项目报名系统</view>
+      <view class="intro-text">便捷的在线报名与管理平台</view>
+    </view>
+  </view>
+
+  <!-- 登录成功后的内容 -->
+  <view class="main" wx:if="{{!isLoading && isAuthenticated}}">
+    <!-- 用户信息区域 -->
+    <view class="user-info-container">
+      <image class="user-avatar" src="{{userInfo.avatarUrl || '../../images/user-default.png'}}"></image>
+      <view class="user-nickname">{{userInfo.nickName || userInfo.username}}</view>
+      <button class="logout-button" type="default" size="mini" bindtap="logout">退出登录</button>
+    </view>
+
+    <view class="title font_title_1">运动项目报名</view>
+    <view class="sub_title">
+      欢迎使用运动项目报名系统，您可以在这里进行项目报名、取消和查看统计数据。
+    </view>
+    
+    <view class="button" bind:tap="gotoGoodsListPage">进入功能页面</view>
+  </view>
+</view>

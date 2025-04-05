@@ -1,0 +1,136 @@
+/* dashboard/index.wxss */
+page {
+  background-color: #f5f5f5;
+  height: 100%;
+}
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 30rpx;
+}
+
+/* 用户信息样式 */
+.user-info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40rpx 0;
+  margin-bottom: 30rpx;
+  background-color: #ffffff;
+  border-radius: 16rpx;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.user-avatar {
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 50%;
+  margin-bottom: 20rpx;
+  background-color: #e0e0e0;
+  border: 4rpx solid #07c160;
+}
+
+.user-nickname {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.welcome-text {
+  font-size: 28rpx;
+  color: #666;
+}
+
+/* 按钮区域样式 */
+.button-container {
+  flex: 1;
+  background-color: #ffffff;
+  border-radius: 16rpx;
+  padding: 40rpx 30rpx;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.page-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 50rpx;
+  text-align: center;
+  position: relative;
+}
+
+.page-title:after {
+  content: "";
+  position: absolute;
+  bottom: -15rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60rpx;
+  height: 6rpx;
+  background-color: #07c160;
+  border-radius: 3rpx;
+}
+
+/* 主要按钮样式 */
+.main-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 60rpx;
+}
+
+.action-button {
+  width: 30%;
+  height: 200rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  font-size: 32rpx;
+  border-radius: 16rpx;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.button-icon {
+  width: 80rpx;
+  height: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.signup-button {
+  background-color: #07c160;
+  color: #ffffff;
+}
+
+.cancel-button {
+  background-color: #ff6b6b;
+  color: #ffffff;
+}
+
+.stats-button {
+  background-color: #4a89dc;
+  color: #ffffff;
+}
+
+/* 退出登录按钮 */
+.logout-button {
+  margin-top: auto;
+  background-color: #f5f5f5;
+  color: #666;
+  border: 1px solid #ddd;
+}
+
+/* 底部信息 */
+.footer {
+  text-align: center;
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 30rpx;
+} 

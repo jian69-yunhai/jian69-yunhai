@@ -1,0 +1,40 @@
+<!--dashboard/index.wxml-->
+<view class="dashboard-container">
+  <!-- 顶部用户信息 -->
+  <view class="user-info-container">
+    <image class="user-avatar" src="{{userInfo.avatarUrl || '../../images/user-default.png'}}"></image>
+    <view class="user-nickname">{{userInfo.nickName || userInfo.username}}</view>
+    <view class="welcome-text">欢迎回来</view>
+  </view>
+  
+  <!-- 功能按钮区域 -->
+  <view class="button-container">
+    <view class="page-title">功能菜单</view>
+    
+    <!-- 三个主要按钮 -->
+    <view class="main-buttons">
+      <button class="action-button signup-button" bindtap="handleSignUp">
+        <image class="button-icon" src="../../images/signup-icon.png"></image>
+        <text>报名</text>
+      </button>
+      
+      <button class="action-button cancel-button" bindtap="handleCancel">
+        <image class="button-icon" src="../../images/cancel-icon.png"></image>
+        <text>取消</text>
+      </button>
+      
+      <button class="action-button stats-button" bindtap="handleStats">
+        <image class="button-icon" src="../../images/stats-icon.png"></image>
+        <text>统计</text>
+      </button>
+    </view>
+    
+    <!-- 退出登录 -->
+    <button class="logout-button" type="default" bindtap="logout">退出登录</button>
+  </view>
+  
+  <!-- 底部信息 -->
+  <view class="footer">
+    <text>运动项目报名系统</text>
+  </view>
+</view> 
