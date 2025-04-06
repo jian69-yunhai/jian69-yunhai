@@ -1,0 +1,129 @@
+1.
+git config --global --list | grep url
+检查 Git 全局配置
+
+git config --global user.name 用户名
+设置用户签名
+
+git config --global user.email 邮箱
+设置用户签名
+
+2.
+git init 
+初始化本地库
+
+git status
+查看本地库状态
+
+git add 文件名
+添加到暂存区
+
+git commit-m "日志信息" 文件名
+提交到本地库
+
+git reflog/git log
+查看历史记录
+
+git reset --hard 版本号
+版本穿梭
+
+3.
+在 Git 中删除本地仓库的文件夹，需要根据你的具体需求选择不同的方法。以下是几种常见情况和对应的操作：
+📌 1. 仅删除本地文件夹（不涉及 Git 历史）
+如果只是想删除本地的某个文件夹（比如临时文件），**不涉及 Git 版本控制**，可以直接用系统命令删除：
+rmdir /s /q folder_name
+**注意**：
+- 这种方式不会影响 Git 跟踪的文件。
+- 如果文件夹里有 Git 跟踪的文件，Git 会提示 `deleted` 状态（需要提交变更）。
+📌 2. 删除文件夹并从 Git 中移除（保留工作区文件）**
+如果文件夹已经被 Git 跟踪，你想 **撤销 Git 跟踪该文件夹**，但仍然 **保留本地文件**（不删除），可以：
+git rm -r --cached folder_name/
+--cached`：仅从 Git 缓存（暂存区）移除，**不删除本地文件**。
+- `-r`：递归删除子文件夹。
+- 最后需要提交变更：
+  git commit -m "Remove folder_name from Git tracking"
+ 📌 3. 彻底删除文件夹（包括本地和 Git 记录）**
+如果想 **完全删除文件夹（本地 + Git 记录）**：
+# 1. 从 Git 删除并移除本地文件
+git rm -r --force folder_name/
+# 2. 提交删除
+git commit -m "Completely remove folder_name"
+- `--force`（`-f`）确保即使文件有修改或未暂存，也会被强制删除。
+- 此操作会删除该文件夹 **所有历史记录**（之后的提交不再包含它）。
+📌 4. 删除文件夹及其历史记录（彻底清理 Git 历史）**
+如果要从 Git **完全擦除某个文件夹的历史记录**（比如删除大文件减少仓库体积），可以使用 `git filter-repo`（推荐）或 `BFG Repo-Cleaner`。
+### **方法 1：使用 `git filter-repo`**
+# 安装 git-filter-repo（若未安装）
+pip install git-filter-repo
+# 删除文件夹及其历史记录
+git filter-repo --path folder_name/ --invert-paths
+# 强制推送到远程（谨慎！）
+git push origin --force --all
+⚠️ **注意**：
+- `git filter-repo` 不同于 `git filter-branch`，更高效且安全。
+- **此操作会重写 Git 历史**，只应在个人分支或团队协商后使用。
+## **📜 总结**
+| **需求** | **命令** | **影响** |
+|----------|---------|----------|
+| 仅删除本地文件夹（不涉及 Git） | `rm -rf folder_name` | 不影响 Git |
+| 从 Git 移除但仍然保留本地文件 | `git rm -r --cached folder_name/` + `git commit` | 停止 Git 跟踪 |
+| 彻底删除 Git 和本地文件夹 | `git rm -r --force folder_name/` + `git commit` | 删除本地 + Git 记录 |
+| 从 Git 历史彻底移除文件夹 | `git filter-repo --path folder_name/ --invert-paths` | 重写历史（适合敏感数据清理） |
+### **💡 额外建议**
+- **谨慎使用 `filter-repo`**，它会影响所有协作者的历史记录。
+- **备份重要文件**，以防误删。
+- 如果要删除大文件并优化仓库体积，可以结合 `git gc` 清理：
+  git gc --prune=now --aggressive
+
+
+git config --global user.name 你的用户名  
+git config --global user.email 你的邮箱地址  
+
+git config --list  
+#如果信息太多，可以输入 q 退出  
+
+# 初始化 git 仓库, 产物: .git 文件夹 (所在文件夹"内"被管理)  
+git init  
+
+# 将 index.html 添加到暂存区  
+git add index.html  
+  
+# 将css目录下一切添加到暂存区  
+git add css  
+
+# .的意思是当前目录下所有变化都暂存  
+git add .  
+
+git commit -m '提交的内容说明'  
+
+git log  
+
+git log --oneline  
+
+git status  
+
+git add .  
+git commit -m '新建登录页面_和样式'  
+
+git reset --hard 版本号  
+
+git reset --hard 477321b  
+
+git reflog  
+
+# 创建分支  
+git branch 分支名  
+
+# 查看当前版本库所有分支，绿色带*代表现在所处的分支  
+git branch  
+
+# 切换分支命令  
+git checkout 分支名  
+
+# 把目标分支名下的所有记录, 合并到当前分支下  
+git merge 目标分支名  
+
+git branch -d 分支名  
+
+
+
