@@ -125,5 +125,42 @@ git merge 目标分支名
 
 git branch -d 分支名  
 
+在 .git 文件夹同级目录下新增.gitignore的忽略文件并写入忽略规则
+# .gitignore内容：  
+password.txt  
+其余用法：  
+# 忽略文件夹  
+css  
+# 忽略文件夹下的某个文件  
+css/index.js  
+# 忽略文件夹下某类文件  
+css/*.js  
+
+可以打开控制台输入 git config --list 重新查看邮箱地址
+当然也可以使用 git config --global user.email 你的邮箱地址重新覆盖原来的邮箱地址
+
+HTTPS协议： 需要输入用户名和密码https://gitee.com/(userName)/(repositoryName).gitssh
+SSH协议： 需要配置密钥，可免密码登录git@gitee.com:userName/repositoryName.git
+
+ssh-keygen -t rsa -C "你注册账号的邮箱"  
+即可在C:\Users\用户名文件夹.ssh目录中生成id_rsa和id_rsa.pub两个文件
+
+# 给远程仓库设置一个别名  
+git remote add 仓库别名 仓库地址  
+git remote add origin git@gitee.com:(username)/repository.git  
+  
+# 删除 origin 这个别名  
+git remote remove origin  
+  
+# 使用 -u 记录 push 到远端分支的默认值，将来直接 git push 即可  
+git push -u 仓库别名 分支名  
+
+git clone [options] <repository-url> [directory]  
+# directory（可选）克隆后的本地仓库所处的目录名称（默认创建与远程仓库名字相同的目录）  
+
+git checkout -b 对应远程分支名  
+
+# 每次拉取都需要指定远程仓库名和分支名  
+git pull 远程仓库名 分支名  
 
 
