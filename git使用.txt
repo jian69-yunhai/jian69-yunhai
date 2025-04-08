@@ -139,7 +139,7 @@ css/*.js
 可以打开控制台输入 git config --list 重新查看邮箱地址
 当然也可以使用 git config --global user.email 你的邮箱地址重新覆盖原来的邮箱地址
 
-HTTPS协议： 需要输入用户名和密码https://gitee.com/(userName)/(repositoryName).gitssh
+HTTPS协议： 需要输入用户名和密码https://github.com/userName/repositoryName
 SSH协议： 需要配置密钥，可免密码登录git@gitee.com:userName/repositoryName.git
 
 ssh-keygen -t rsa -C "你注册账号的邮箱"  
@@ -162,5 +162,46 @@ git checkout -b 对应远程分支名
 
 # 每次拉取都需要指定远程仓库名和分支名  
 git pull 远程仓库名 分支名  
+
+# 查看工作区与暂存区的差异（精确到行）
+git diff --color-words  # 词级对比模式
+# 显示未被追踪的文件（忽略.gitignore）
+git ls-files --others --exclude-standard
+
+# 两步等效操作：
+mv old_path new_path && git add new_path && git rm old_path
+# 原子操作（保留历史记录）：
+git mv old_file.txt new_dir/renamed_file.txt
+
+# 从工作区及版本库中删除：
+git rm -f build/*.log  # 强制删除已跟踪文件
+# 仅从版本库移除（保留本地文件）：
+git rm --cached sensitive_data.key
+
+# 交互式清理（安全模式）：
+git clean -di
+# 危险操作（强制删除所有未追踪文件）：
+git clean -dfx  # 含忽略文件
+
+# 正则表达式批量删除：
+git rm $(git ls-files | grep 'temp_.*\.json$')
+# 使用通配符操作：
+git checkout HEAD -- src/**/*.js  # 恢复所有JS文件
+
+# 转换文件编码并保留变更记录：
+git config --global core.quotepath off  # 正确显示中文路径
+iconv -f GBK -t UTF-8 file.csv | git add -
+
+# 从最近一次提交找回：
+git checkout HEAD -- deleted_file.py
+# 跨分支恢复：
+git checkout feature-branch -- config.yaml
+
+# 重置单个文件：
+git restore --source=HEAD~2 dashboard.html
+# 强制同步远程仓库：
+git fetch --all && git reset --hard origin/main
+
+
 
 
