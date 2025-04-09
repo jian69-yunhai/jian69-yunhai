@@ -129,9 +129,25 @@ Page({
           success: () => {
             // 登录成功后跳转到dashboard页面
             setTimeout(() => {
-              wx.redirectTo({
-                url: '/pages/dashboard/index'
-              });
+              if (this.data.isRegisterMode) {
+                // 注册成功后，切换到登录页面
+                this.setData({
+                  isRegisterMode: false,
+                  password: '',
+                  confirmPassword: '',
+                  isAuthenticated: false,
+                  userInfo: null
+                });
+                wx.showToast({
+                  title: '请登录您的新账号',
+                  icon: 'none'
+                });
+              } else {
+                // 登录成功后跳转到dashboard页面
+                wx.redirectTo({
+                  url: '/pages/dashboard/index'
+                });
+              }
             }, 1000);
           }
         });

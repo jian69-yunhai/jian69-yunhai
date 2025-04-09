@@ -135,10 +135,7 @@ App({
       });
 
       if (result.result && result.result.success) {
-        // 注册成功后自动登录
-        this.globalData.userInfo = result.result.userInfo;
-        this.globalData.isAuthenticated = true;
-        
+        // 注册成功，但不自动登录，需要用户手动登录
         console.log('注册成功，用户信息：', result.result.userInfo);
         
         return {
