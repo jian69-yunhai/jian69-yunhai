@@ -10,6 +10,7 @@ Page({
     isLoading: false,
     userInfo: null,
     isAuthenticated: false,
+    version: '',
     
     // 用户名密码登录相关
     username: '',
@@ -21,6 +22,11 @@ Page({
   },
 
   onLoad: function() {
+    // 设置应用版本号
+    this.setData({
+      version: app.globalData.version
+    });
+    
     // 检查用户是否已登录
     if (app.globalData.isAuthenticated && app.globalData.userInfo) {
       // 如果已登录，直接跳转到dashboard页面
@@ -193,5 +199,10 @@ Page({
     wx.redirectTo({
       url: '/pages/dashboard/index',
     })
+  },
+  
+  // 检查更新
+  checkUpdate() {
+    app.updateApp();
   },
 });

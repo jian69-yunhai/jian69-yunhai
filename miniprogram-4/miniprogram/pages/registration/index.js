@@ -10,7 +10,7 @@ Page({
     date: '',
     minDate: '',
     maxDate: '',
-    timeSlots: ['上午 (08:00-12:00)', '下午 (14:00-18:00)', '晚上 (19:00-22:00)'],
+    timeSlots: ['上午 (08:00-12:00)', '下午 (14:00-18:00)', '晚上 (18:00-21:00)'],
     timeSlotIndex: -1,
     remark: '',
     remarkLength: 0,

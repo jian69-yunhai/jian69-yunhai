@@ -5,6 +5,12 @@
     <view class="loading">加载中...</view>
   </view>
 
+  <!-- 版本号显示 (moved up) -->
+  <view class="version-info">
+    <text>版本 v{{version}}</text>
+    <view class="update-button" bindtap="checkUpdate">检查更新</view>
+  </view>
+
   <!-- 用户登录区域 -->
   <view class="login-container" wx:if="{{!isLoading && !isAuthenticated}}">
     <view class="login-title">{{isRegisterMode ? '用户注册' : '用户登录'}}</view>

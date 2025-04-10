@@ -385,3 +385,25 @@ page {
   border: 1px solid #ddd;
   background-color: #fff;
 }
+
+/* 版本号样式 */
+.version-info {
+  font-size: 24rpx;
+  color: #999;
+  text-align: center;
+  margin-top: 20rpx;
+  margin-bottom: 10rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.update-button {
+  margin-left: 20rpx;
+  color: #07c160;
+  font-size: 24rpx;
+  padding: 4rpx 12rpx;
+  border: 1px solid #07c160;
+  border-radius: 16rpx;
+}
