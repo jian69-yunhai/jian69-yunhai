@@ -19,7 +19,8 @@ Page({
     
     // 统计结果
     hasResult: false,
-    registrationCount: 0
+    registrationCount: 0,
+    registrationsList: [] // 存储报名明细数据
   },
   
   onLoad: function() {
@@ -123,15 +124,50 @@ Page({
         query.sportType = this.data.sportTypes[this.data.sportTypeIndex];
       }
       
-      // 查询数据库
-      const result = await db.collection('registrations')
+      // 查询数据库获取数量
+      const countResult = await db.collection('registrations')
         .where(query)
         .count();
+      
+      // 使用分页获取所有记录
+      const MAX_LIMIT = 20; // 小程序云开发单次查询最大限制
+      const totalCount = countResult.total;
+      const batchTimes = Math.ceil(totalCount / MAX_LIMIT);
+      const tasks = [];
+      
+      // 创建多个查询任务
+      for (let i = 0; i < batchTimes; i++) {
+        const promise = db.collection('registrations')
+          .where(query)
+          .field({
+            username: true,
+            sportDate: true,
+            sportType: true,
+            status: true,
+            timeSlot: true
+          })
+          .orderBy('sportDate', 'asc')
+          .skip(i * MAX_LIMIT)
+          .limit(MAX_LIMIT)
+          .get();
+        
+        tasks.push(promise);
+      }
+      
+      // 等待所有查询完成并合并结果
+      const results = await Promise.all(tasks);
+      const allRegistrations = [];
+      
+      // 合并所有查询结果
+      results.forEach(result => {
+        allRegistrations.push(...result.data);
+      });
       
       // 更新统计结果
       this.setData({
         hasResult: true,
-        registrationCount: result.total
+        registrationCount: totalCount,
+        registrationsList: allRegistrations
       });
       
       wx.hideLoading();

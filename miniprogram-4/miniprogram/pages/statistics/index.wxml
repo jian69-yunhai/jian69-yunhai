@@ -49,6 +49,28 @@
           <text class="result-value">{{registrationCount}} 人</text>
         </view>
       </view>
+      
+      <!-- 报名明细列表 -->
+      <view class="details-section" wx:if="{{registrationsList.length > 0}}">
+        <view class="details-title">报名明细</view>
+        <view class="details-list">
+          <view class="details-header">
+            <text class="details-header-cell">姓名</text>
+            <text class="details-header-cell">运动项目</text>
+            <text class="details-header-cell">运动日期</text>
+            <text class="details-header-cell">状态</text>
+          </view>
+          <view class="details-item" wx:for="{{registrationsList}}" wx:key="index">
+            <text class="details-cell">{{item.username}}</text>
+            <text class="details-cell">{{item.sportType}}</text>
+            <text class="details-cell">{{item.sportDate}}</text>
+            <text class="details-cell">{{item.status === 'active' ? '有效' : '已取消'}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="no-data" wx:if="{{hasResult && registrationsList.length === 0}}">
+        没有找到符合条件的报名记录
+      </view>
     </view>
     
     <!-- 返回按钮 -->

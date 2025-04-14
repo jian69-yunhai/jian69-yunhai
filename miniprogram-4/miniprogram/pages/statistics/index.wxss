@@ -120,8 +120,70 @@ page {
 
 .result-value {
   color: #07c160;
-  font-size: 32rpx;
+  font-size: 20rpx;
   font-weight: bold;
+}
+
+/* 报名明细样式 */
+.details-section {
+  margin-top: 30rpx;
+}
+
+.details-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.details-list {
+  background: #fff;
+  border-radius: 8rpx;
+  overflow: hidden;
+  max-height: none;
+}
+
+.details-header {
+  display: flex;
+  background-color: #f0f9f0;
+  padding: 16rpx 0;
+  font-size: 20rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.details-header-cell {
+  flex: 1;
+  text-align: center;
+  padding: 0 6rpx;
+}
+
+.details-item {
+  display: flex;
+  border-bottom: 1px solid #eee;
+  padding: 16rpx 0;
+  font-size: 20rpx;
+  color: #666;
+}
+
+.details-item:last-child {
+  border-bottom: none;
+}
+
+.details-cell {
+  flex: 1;
+  text-align: center;
+  padding: 0 6rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.no-data {
+  text-align: center;
+  padding: 30rpx;
+  color: #999;
+  font-size: 28rpx;
 }
 
 .back-button {
