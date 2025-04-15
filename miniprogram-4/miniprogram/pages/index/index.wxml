@@ -30,8 +30,8 @@
                placeholder="请输入用户名" />
       </view>
       
-      <!-- 密码 -->
-      <view class="form-item">
+      <!-- 密码（仅注册模式显示） -->
+      <view class="form-item" wx:if="{{isRegisterMode}}">
         <text class="form-label">密码</text>
         <view class="password-container">
           <input class="form-input" 

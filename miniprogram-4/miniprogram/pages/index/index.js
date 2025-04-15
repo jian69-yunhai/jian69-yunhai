@@ -84,13 +84,13 @@ Page({
       return;
     }
     
-    if (!this.data.password) {
-      this.setData({ errorMessage: '请输入密码' });
-      return;
-    }
-    
-    // 注册模式下需要确认密码
+    // 注册模式下还需要密码
     if (this.data.isRegisterMode) {
+      if (!this.data.password) {
+        this.setData({ errorMessage: '请输入密码' });
+        return;
+      }
+      
       if (!this.data.confirmPassword) {
         this.setData({ errorMessage: '请确认密码' });
         return;
@@ -116,10 +116,17 @@ Page({
         // 注册
         wx.showLoading({ title: '注册中...' });
         result = await app.userRegister(this.data.username, this.data.password);
+        
+        if (result.success) {
+          // 注册成功后自动登录
+          wx.showLoading({ title: '登录中...' });
+          // 使用刚注册的用户名密码执行登录
+          result = await app.userLogin(this.data.username, this.data.password);
+        }
       } else {
-        // 登录
+        // 登录 - 只需要用户名
         wx.showLoading({ title: '登录中...' });
-        result = await app.userLogin(this.data.username, this.data.password);
+        result = await app.userLoginByUsername(this.data.username);
       }
       
       if (result.success) {
@@ -130,30 +137,15 @@ Page({
         });
         
         wx.showToast({
-          title: result.message || (this.data.isRegisterMode ? '注册成功' : '登录成功'),
+          title: result.message || (this.data.isRegisterMode ? '注册并登录成功' : '登录成功'),
           icon: 'success',
           success: () => {
             // 登录成功后跳转到dashboard页面
             setTimeout(() => {
-              if (this.data.isRegisterMode) {
-                // 注册成功后，切换到登录页面
-                this.setData({
-                  isRegisterMode: false,
-                  password: '',
-                  confirmPassword: '',
-                  isAuthenticated: false,
-                  userInfo: null
-                });
-                wx.showToast({
-                  title: '请登录您的新账号',
-                  icon: 'none'
-                });
-              } else {
-                // 登录成功后跳转到dashboard页面
-                wx.redirectTo({
-                  url: '/pages/dashboard/index'
-                });
-              }
+              // 登录成功后跳转到dashboard页面
+              wx.redirectTo({
+                url: '/pages/dashboard/index'
+              });
             }, 1000);
           }
         });
@@ -205,4 +197,9 @@ Page({
   checkUpdate() {
     app.updateApp();
   },
+  
+  // 退出登录
+  logout() {
+    app.logout();
+  }
 });

@@ -24,11 +24,41 @@ App({
     this.globalData = {
       userInfo: null,
       isAuthenticated: false,
-      version: '1.1.0',
+      version: '1.1.1',
       hasNewVersion: false,
       updateReady: false,
       updateFailed: false
     };
+    
+    // 尝试自动登录
+    this.tryAutoLogin();
+  },
+
+  // 尝试自动登录
+  tryAutoLogin: async function() {
+    try {
+      // 从本地存储获取用户信息
+      const userInfo = wx.getStorageSync('userInfo');
+      if (userInfo) {
+        // 设置全局登录状态
+        this.globalData.userInfo = userInfo;
+        this.globalData.isAuthenticated = true;
+        
+        console.log('自动登录成功:', userInfo.username);
+        
+        // 如果当前在首页，直接跳转到dashboard页面
+        const pages = getCurrentPages();
+        if (pages.length > 0 && pages[0].route === 'pages/index/index') {
+          wx.redirectTo({
+            url: '/pages/dashboard/index'
+          });
+        }
+      }
+    } catch (error) {
+      console.error('自动登录失败:', error);
+      // 清除可能损坏的存储
+      wx.removeStorageSync('userInfo');
+    }
   },
 
   // 检查并创建users集合
@@ -92,6 +122,63 @@ App({
         // 保存用户信息到全局变量
         this.globalData.userInfo = result.result.userInfo;
         this.globalData.isAuthenticated = true;
+        
+        // 保存用户信息到本地存储，用于下次自动登录
+        wx.setStorageSync('userInfo', result.result.userInfo);
+        
+        // 打印用户信息到控制台（方便调试）
+        console.log('用户信息：', result.result.userInfo);
+        
+        // 返回成功结果
+        return {
+          success: true,
+          message: result.result.message,
+          userInfo: result.result.userInfo
+        };
+      } else {
+        console.error('用户登录失败：', result);
+        return {
+          success: false,
+          message: result.result?.message || '登录失败'
+        };
+      }
+    } catch (error) {
+      console.error('登录出错：', error);
+      return {
+        success: false,
+        message: '登录失败',
+        error: error
+      };
+    }
+  },
+  
+  // 仅使用用户名登录方法
+  userLoginByUsername: async function (username) {
+    try {
+      if (!username) {
+        return {
+          success: false,
+          message: '用户名不能为空'
+        };
+      }
+      
+      // 调用登录云函数，使用仅用户名模式
+      const result = await wx.cloud.callFunction({
+        name: 'quickstartFunctions',
+        data: {
+          type: 'userAuth',
+          action: 'loginByUsername',
+          username: username
+        }
+      });
+
+      if (result.result && result.result.success) {
+        // 保存用户信息到全局变量
+        this.globalData.userInfo = result.result.userInfo;
+        this.globalData.isAuthenticated = true;
+        
+        // 保存用户信息到本地存储，用于下次自动登录
+        wx.setStorageSync('userInfo', result.result.userInfo);
         
         // 打印用户信息到控制台（方便调试）
         console.log('用户信息：', result.result.userInfo);
@@ -235,5 +322,20 @@ App({
         error: error
       };
     }
+  },
+
+  // 退出登录方法
+  logout: function() {
+    // 清除本地存储的用户信息
+    wx.removeStorageSync('userInfo');
+    
+    // 重置全局状态
+    this.globalData.userInfo = null;
+    this.globalData.isAuthenticated = false;
+    
+    // 跳转到登录页面
+    wx.redirectTo({
+      url: '/pages/index/index'
+    });
   }
 });

@@ -88,6 +88,60 @@ exports.main = async (event, context) => {
     }
   }
   
+  // 仅用户名登录操作
+  else if (event.action === 'loginByUsername') {
+    try {
+      // 检查必要参数
+      if (!event.username) {
+        return {
+          success: false,
+          message: '用户名不能为空'
+        }
+      }
+      
+      // 查询用户
+      const userResult = await userCollection.where({
+        username: event.username
+      }).get()
+      
+      console.log('用户名登录查询结果：', userResult)
+      
+      // 用户不存在
+      if (userResult.data.length === 0) {
+        return {
+          success: false,
+          message: '用户名不存在'
+        }
+      }
+      
+      const user = userResult.data[0]
+      
+      // 更新登录信息
+      await userCollection.doc(user._id).update({
+        data: {
+          lastLoginTime: new Date(),
+          openid: openid // 关联当前微信openid
+        }
+      })
+      
+      // 不返回密码
+      delete user.password
+      
+      return {
+        success: true,
+        message: '登录成功',
+        userInfo: user
+      }
+    } catch (error) {
+      console.error('用户名登录出错：', error)
+      return {
+        success: false,
+        message: '登录失败',
+        error: error
+      }
+    }
+  }
+  
   // 注册操作
   else if (event.action === 'register') {
     try {
