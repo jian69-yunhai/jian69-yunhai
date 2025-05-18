@@ -24,7 +24,7 @@ App({
     this.globalData = {
       userInfo: null,
       isAuthenticated: false,
-      version: '1.1.1',
+      version: '1.1.3',
       hasNewVersion: false,
       updateReady: false,
       updateFailed: false

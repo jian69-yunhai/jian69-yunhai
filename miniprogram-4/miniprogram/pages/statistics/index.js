@@ -7,12 +7,12 @@ Page({
     
     // 表单数据
     sportTypes: ['篮球', '足球', '网球', '羽毛球', '乒乓球', '游泳', '健身', '瑜伽', '跑步'],
-    sportTypeIndex: -1,
+    sportTypeIndex: 3,
     date: '',
     minDate: '',
     maxDate: '',
     timeSlots: ['上午 (08:00-12:00)', '下午 (14:00-18:00)', '晚上 (18:00-21:00)'],
-    timeSlotIndex: -1,
+    timeSlotIndex: 2,
     
     // 表单状态
     isFormValid: false,
@@ -53,8 +53,11 @@ Page({
     
     this.setData({
       minDate: this.formatDate(pastDate),
-      maxDate: this.formatDate(futureDate)
+      maxDate: this.formatDate(futureDate),
+      date: this.formatDate(today)
     });
+    
+    this.checkFormValidity();
   },
   
   // 格式化日期为YYYY-MM-DD
